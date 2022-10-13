@@ -34,7 +34,9 @@
         <script src="data/RegionalCentreBoundary_1.js"></script>
         <script src="data/InformalGreenspaces_2.js"></script>
         <script src="data/PrivatelyManagedGreenspaces_3.js"></script>
-        <script src="data/PubliclyManagedGreenspaces_4.js"></script>
+        <script src="data/PubliclyManagedGreenspacesNonHRM_4.js"></script>
+        <script src="data/PubliclyManagedGreenspacesHRM_5.js"></script>
+        <script src="data/PubliclyManagedGreenspaces_6.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -43,7 +45,7 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[44.59684406050794,-63.63425540942497],[44.712560983077786,-63.528750929575054]]);
+        }).fitBounds([[44.563740311765564,-63.68996905073412],[44.7300353146579,-63.351568187351575]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -78,15 +80,18 @@
             });
             var popupContent = '<table>\
                     <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">URL</th>\
+                        <td>' + (feature.properties['WEBURL'] !== null ? autolinker.link(feature.properties['WEBURL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
                         <td colspan="2">' + (feature.properties['BOUNDARY'] !== null ? autolinker.link(feature.properties['BOUNDARY'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Boundary Abbreviation</th>\
                         <td>' + (feature.properties['BOUND_ABBR'] !== null ? autolinker.link(feature.properties['BOUND_ABBR'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">URL</th>\
-                        <td>' + (feature.properties['WEBURL'] !== null ? autolinker.link(feature.properties['WEBURL'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Area (m²)</th>\
@@ -339,7 +344,236 @@
         });
         bounds_group.addLayer(layer_PrivatelyManagedGreenspaces_3);
         map.addLayer(layer_PrivatelyManagedGreenspaces_3);
-        function pop_PubliclyManagedGreenspaces_4(feature, layer) {
+        function pop_PubliclyManagedGreenspacesNonHRM_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">OWNER</th>\
+                        <td>' + (feature.properties['OWNER'] !== null ? autolinker.link(feature.properties['OWNER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ACCESS</th>\
+                        <td>' + (feature.properties['ACCESS'] !== null ? autolinker.link(feature.properties['ACCESS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SPACE_TYPE</th>\
+                        <td>' + (feature.properties['SPACE_TYPE'] !== null ? autolinker.link(feature.properties['SPACE_TYPE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SPACE_MAIN</th>\
+                        <td>' + (feature.properties['SPACE_MAIN'] !== null ? autolinker.link(feature.properties['SPACE_MAIN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>SPACE_NAME</strong><br />' + (feature.properties['SPACE_NAME'] !== null ? autolinker.link(feature.properties['SPACE_NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MEMBERSHIP</th>\
+                        <td>' + (feature.properties['MEMBERSHIP'] !== null ? autolinker.link(feature.properties['MEMBERSHIP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        var pattern_PubliclyManagedGreenspacesNonHRM_4_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#f5c103',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_PubliclyManagedGreenspacesNonHRM_4_0.addTo(map);
+        function style_PubliclyManagedGreenspacesNonHRM_4_0() {
+            return {
+                pane: 'pane_PubliclyManagedGreenspacesNonHRM_4',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_PubliclyManagedGreenspacesNonHRM_4_0,
+                interactive: true,
+            }
+        }
+        var pattern_PubliclyManagedGreenspacesNonHRM_4_1 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#f5c103',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 225
+        });
+        pattern_PubliclyManagedGreenspacesNonHRM_4_1.addTo(map);
+        function style_PubliclyManagedGreenspacesNonHRM_4_1() {
+            return {
+                pane: 'pane_PubliclyManagedGreenspacesNonHRM_4',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_PubliclyManagedGreenspacesNonHRM_4_1,
+                interactive: true,
+            }
+        }
+        function style_PubliclyManagedGreenspacesNonHRM_4_2() {
+            return {
+                pane: 'pane_PubliclyManagedGreenspacesNonHRM_4',
+                opacity: 1,
+                color: 'rgba(245,193,3,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_PubliclyManagedGreenspacesNonHRM_4');
+        map.getPane('pane_PubliclyManagedGreenspacesNonHRM_4').style.zIndex = 404;
+        map.getPane('pane_PubliclyManagedGreenspacesNonHRM_4').style['mix-blend-mode'] = 'normal';
+        var layer_PubliclyManagedGreenspacesNonHRM_4 = new L.geoJson.multiStyle(json_PubliclyManagedGreenspacesNonHRM_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PubliclyManagedGreenspacesNonHRM_4',
+            layerName: 'layer_PubliclyManagedGreenspacesNonHRM_4',
+            pane: 'pane_PubliclyManagedGreenspacesNonHRM_4',
+            onEachFeature: pop_PubliclyManagedGreenspacesNonHRM_4,
+            styles: [style_PubliclyManagedGreenspacesNonHRM_4_0,style_PubliclyManagedGreenspacesNonHRM_4_1,style_PubliclyManagedGreenspacesNonHRM_4_2,]
+        });
+        bounds_group.addLayer(layer_PubliclyManagedGreenspacesNonHRM_4);
+        map.addLayer(layer_PubliclyManagedGreenspacesNonHRM_4);
+        function pop_PubliclyManagedGreenspacesHRM_5(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">OWNER</th>\
+                        <td>' + (feature.properties['OWNER'] !== null ? autolinker.link(feature.properties['OWNER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">HECTARES</th>\
+                        <td>' + (feature.properties['HECTARES'] !== null ? autolinker.link(feature.properties['HECTARES'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SHAPE_Leng</th>\
+                        <td>' + (feature.properties['SHAPE_Leng'] !== null ? autolinker.link(feature.properties['SHAPE_Leng'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SHAPE_Area</th>\
+                        <td>' + (feature.properties['SHAPE_Area'] !== null ? autolinker.link(feature.properties['SHAPE_Area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ACCESS</th>\
+                        <td>' + (feature.properties['ACCESS'] !== null ? autolinker.link(feature.properties['ACCESS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2"><strong>SPACE_NAME</strong><br />' + (feature.properties['SPACE_NAME'] !== null ? autolinker.link(feature.properties['SPACE_NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SPACE_MAIN</th>\
+                        <td>' + (feature.properties['SPACE_MAIN'] !== null ? autolinker.link(feature.properties['SPACE_MAIN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">SPACE_TYPE</th>\
+                        <td>' + (feature.properties['SPACE_TYPE'] !== null ? autolinker.link(feature.properties['SPACE_TYPE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MEMBERSHIP</th>\
+                        <td>' + (feature.properties['MEMBERSHIP'] !== null ? autolinker.link(feature.properties['MEMBERSHIP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['HTML_area'] !== null ? autolinker.link(feature.properties['HTML_area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        var pattern_PubliclyManagedGreenspacesHRM_5_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#02618f',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_PubliclyManagedGreenspacesHRM_5_0.addTo(map);
+        function style_PubliclyManagedGreenspacesHRM_5_0() {
+            return {
+                pane: 'pane_PubliclyManagedGreenspacesHRM_5',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_PubliclyManagedGreenspacesHRM_5_0,
+                interactive: true,
+            }
+        }
+        var pattern_PubliclyManagedGreenspacesHRM_5_1 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#02618f',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 225
+        });
+        pattern_PubliclyManagedGreenspacesHRM_5_1.addTo(map);
+        function style_PubliclyManagedGreenspacesHRM_5_1() {
+            return {
+                pane: 'pane_PubliclyManagedGreenspacesHRM_5',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_PubliclyManagedGreenspacesHRM_5_1,
+                interactive: true,
+            }
+        }
+        function style_PubliclyManagedGreenspacesHRM_5_2() {
+            return {
+                pane: 'pane_PubliclyManagedGreenspacesHRM_5',
+                opacity: 1,
+                color: 'rgba(2,97,143,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_PubliclyManagedGreenspacesHRM_5');
+        map.getPane('pane_PubliclyManagedGreenspacesHRM_5').style.zIndex = 405;
+        map.getPane('pane_PubliclyManagedGreenspacesHRM_5').style['mix-blend-mode'] = 'normal';
+        var layer_PubliclyManagedGreenspacesHRM_5 = new L.geoJson.multiStyle(json_PubliclyManagedGreenspacesHRM_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_PubliclyManagedGreenspacesHRM_5',
+            layerName: 'layer_PubliclyManagedGreenspacesHRM_5',
+            pane: 'pane_PubliclyManagedGreenspacesHRM_5',
+            onEachFeature: pop_PubliclyManagedGreenspacesHRM_5,
+            styles: [style_PubliclyManagedGreenspacesHRM_5_0,style_PubliclyManagedGreenspacesHRM_5_1,style_PubliclyManagedGreenspacesHRM_5_2,]
+        });
+        bounds_group.addLayer(layer_PubliclyManagedGreenspacesHRM_5);
+        map.addLayer(layer_PubliclyManagedGreenspacesHRM_5);
+        function pop_PubliclyManagedGreenspaces_6(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if (typeof layer.closePopup == 'function') {
@@ -384,7 +618,7 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        var pattern_PubliclyManagedGreenspaces_4_0 = new L.StripePattern({
+        var pattern_PubliclyManagedGreenspaces_6_0 = new L.StripePattern({
             weight: 0.3,
             spaceWeight: 2.0,
             color: '#72a52b',
@@ -392,17 +626,17 @@
             spaceOpacity: 0,
             angle: 315
         });
-        pattern_PubliclyManagedGreenspaces_4_0.addTo(map);
-        function style_PubliclyManagedGreenspaces_4_0() {
+        pattern_PubliclyManagedGreenspaces_6_0.addTo(map);
+        function style_PubliclyManagedGreenspaces_6_0() {
             return {
-                pane: 'pane_PubliclyManagedGreenspaces_4',
+                pane: 'pane_PubliclyManagedGreenspaces_6',
                 stroke: false,
                 fillOpacity: 1,
-                fillPattern: pattern_PubliclyManagedGreenspaces_4_0,
+                fillPattern: pattern_PubliclyManagedGreenspaces_6_0,
                 interactive: true,
             }
         }
-        var pattern_PubliclyManagedGreenspaces_4_1 = new L.StripePattern({
+        var pattern_PubliclyManagedGreenspaces_6_1 = new L.StripePattern({
             weight: 0.3,
             spaceWeight: 2.0,
             color: '#72a52b',
@@ -410,19 +644,19 @@
             spaceOpacity: 0,
             angle: 225
         });
-        pattern_PubliclyManagedGreenspaces_4_1.addTo(map);
-        function style_PubliclyManagedGreenspaces_4_1() {
+        pattern_PubliclyManagedGreenspaces_6_1.addTo(map);
+        function style_PubliclyManagedGreenspaces_6_1() {
             return {
-                pane: 'pane_PubliclyManagedGreenspaces_4',
+                pane: 'pane_PubliclyManagedGreenspaces_6',
                 stroke: false,
                 fillOpacity: 1,
-                fillPattern: pattern_PubliclyManagedGreenspaces_4_1,
+                fillPattern: pattern_PubliclyManagedGreenspaces_6_1,
                 interactive: true,
             }
         }
-        function style_PubliclyManagedGreenspaces_4_2() {
+        function style_PubliclyManagedGreenspaces_6_2() {
             return {
-                pane: 'pane_PubliclyManagedGreenspaces_4',
+                pane: 'pane_PubliclyManagedGreenspaces_6',
                 opacity: 1,
                 color: 'rgba(114,165,43,1.0)',
                 dashArray: '',
@@ -433,32 +667,32 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_PubliclyManagedGreenspaces_4');
-        map.getPane('pane_PubliclyManagedGreenspaces_4').style.zIndex = 404;
-        map.getPane('pane_PubliclyManagedGreenspaces_4').style['mix-blend-mode'] = 'normal';
-        var layer_PubliclyManagedGreenspaces_4 = new L.geoJson.multiStyle(json_PubliclyManagedGreenspaces_4, {
+        map.createPane('pane_PubliclyManagedGreenspaces_6');
+        map.getPane('pane_PubliclyManagedGreenspaces_6').style.zIndex = 406;
+        map.getPane('pane_PubliclyManagedGreenspaces_6').style['mix-blend-mode'] = 'normal';
+        var layer_PubliclyManagedGreenspaces_6 = new L.geoJson.multiStyle(json_PubliclyManagedGreenspaces_6, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_PubliclyManagedGreenspaces_4',
-            layerName: 'layer_PubliclyManagedGreenspaces_4',
-            pane: 'pane_PubliclyManagedGreenspaces_4',
-            onEachFeature: pop_PubliclyManagedGreenspaces_4,
-            styles: [style_PubliclyManagedGreenspaces_4_0,style_PubliclyManagedGreenspaces_4_1,style_PubliclyManagedGreenspaces_4_2,]
+            dataVar: 'json_PubliclyManagedGreenspaces_6',
+            layerName: 'layer_PubliclyManagedGreenspaces_6',
+            pane: 'pane_PubliclyManagedGreenspaces_6',
+            onEachFeature: pop_PubliclyManagedGreenspaces_6,
+            styles: [style_PubliclyManagedGreenspaces_6_0,style_PubliclyManagedGreenspaces_6_1,style_PubliclyManagedGreenspaces_6_2,]
         });
-        bounds_group.addLayer(layer_PubliclyManagedGreenspaces_4);
-        map.addLayer(layer_PubliclyManagedGreenspaces_4);
+        bounds_group.addLayer(layer_PubliclyManagedGreenspaces_6);
+        map.addLayer(layer_PubliclyManagedGreenspaces_6);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/PubliclyManagedGreenspaces_4.png" /> Publicly Managed Greenspaces': layer_PubliclyManagedGreenspaces_4,'<img src="legend/PrivatelyManagedGreenspaces_3.png" /> Privately Managed Greenspaces': layer_PrivatelyManagedGreenspaces_3,'<img src="legend/InformalGreenspaces_2.png" /> Informal Greenspaces': layer_InformalGreenspaces_2,'<img src="legend/RegionalCentreBoundary_1.png" /> Regional Centre Boundary': layer_RegionalCentreBoundary_1,"Base Map": layer_BaseMap_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/PubliclyManagedGreenspaces_6.png" /> Publicly Managed Greenspaces': layer_PubliclyManagedGreenspaces_6,'<img src="legend/PubliclyManagedGreenspacesHRM_5.png" /> Publicly Managed Greenspaces (HRM)': layer_PubliclyManagedGreenspacesHRM_5,'<img src="legend/PubliclyManagedGreenspacesNonHRM_4.png" /> Publicly Managed Greenspaces (Non-HRM)': layer_PubliclyManagedGreenspacesNonHRM_4,'<img src="legend/PrivatelyManagedGreenspaces_3.png" /> Privately Managed Greenspaces': layer_PrivatelyManagedGreenspaces_3,'<img src="legend/InformalGreenspaces_2.png" /> Informal Greenspaces': layer_InformalGreenspaces_2,'<img src="legend/RegionalCentreBoundary_1.png" /> Regional Centre Boundary': layer_RegionalCentreBoundary_1,"Base Map": layer_BaseMap_0,},{collapsed:false}).addTo(map);
         setBounds();
-        resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspaces_4]);
+        resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspacesNonHRM_4,layer_PubliclyManagedGreenspacesHRM_5,layer_PubliclyManagedGreenspaces_6]);
         map.on("zoomend", function(){
-            resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspaces_4]);
+            resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspacesNonHRM_4,layer_PubliclyManagedGreenspacesHRM_5,layer_PubliclyManagedGreenspaces_6]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspaces_4]);
+            resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspacesNonHRM_4,layer_PubliclyManagedGreenspacesHRM_5,layer_PubliclyManagedGreenspaces_6]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspaces_4]);
+            resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspacesNonHRM_4,layer_PubliclyManagedGreenspacesHRM_5,layer_PubliclyManagedGreenspaces_6]);
         });
         </script>
     </body>
