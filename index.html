@@ -31,24 +31,29 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
-        <script src="data/RC_Boundary_1.js"></script>
-        <script src="data/HRM_RC_InformalGreenspaces_2.js"></script>
-        <script src="data/HRM_RC_PrivateSpaces_3.js"></script>
-        <script src="data/HRM_RC_AllPublicGreenspaces_4.js"></script>
+        <script src="data/RegionalCentreBoundary_1.js"></script>
+        <script src="data/InformalGreenspaces_2.js"></script>
+        <script src="data/PrivatelyManagedGreenspaces_3.js"></script>
+        <script src="data/PubliclyManagedGreenspaces_4.js"></script>
         <script>
+        var highlightLayer;
+        function highlightFeature(e) {
+            highlightLayer = e.target;
+            highlightLayer.openPopup();
+        }
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[44.61314831516162,-63.66610338534561],[44.696284658645396,-63.496902953654335]]);
+        }).fitBounds([[44.59684406050794,-63.63425540942497],[44.712560983077786,-63.528750929575054]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
-        map.createPane('pane_ESRIGraylight_0');
-        map.getPane('pane_ESRIGraylight_0').style.zIndex = 400;
-        var layer_ESRIGraylight_0 = L.tileLayer('http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
-            pane: 'pane_ESRIGraylight_0',
+        map.createPane('pane_BaseMap_0');
+        map.getPane('pane_BaseMap_0').style.zIndex = 400;
+        var layer_BaseMap_0 = L.tileLayer('http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+            pane: 'pane_BaseMap_0',
             opacity: 1.0,
             attribution: '',
             minZoom: 1,
@@ -56,9 +61,21 @@
             minNativeZoom: 0,
             maxNativeZoom: 20
         });
-        layer_ESRIGraylight_0;
-        map.addLayer(layer_ESRIGraylight_0);
-        function pop_RC_Boundary_1(feature, layer) {
+        layer_BaseMap_0;
+        map.addLayer(layer_BaseMap_0);
+        function pop_RegionalCentreBoundary_1(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['BOUNDARY'] !== null ? autolinker.link(feature.properties['BOUNDARY'].toLocaleString()) : '') + '</td>\
@@ -79,9 +96,9 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        function style_RC_Boundary_1_0() {
+        function style_RegionalCentreBoundary_1_0() {
             return {
-                pane: 'pane_RC_Boundary_1',
+                pane: 'pane_RegionalCentreBoundary_1',
                 opacity: 1,
                 color: 'rgba(1,37,77,1.0)',
                 dashArray: '10,5',
@@ -92,21 +109,33 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_RC_Boundary_1');
-        map.getPane('pane_RC_Boundary_1').style.zIndex = 401;
-        map.getPane('pane_RC_Boundary_1').style['mix-blend-mode'] = 'normal';
-        var layer_RC_Boundary_1 = new L.geoJson(json_RC_Boundary_1, {
+        map.createPane('pane_RegionalCentreBoundary_1');
+        map.getPane('pane_RegionalCentreBoundary_1').style.zIndex = 401;
+        map.getPane('pane_RegionalCentreBoundary_1').style['mix-blend-mode'] = 'normal';
+        var layer_RegionalCentreBoundary_1 = new L.geoJson(json_RegionalCentreBoundary_1, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_RC_Boundary_1',
-            layerName: 'layer_RC_Boundary_1',
-            pane: 'pane_RC_Boundary_1',
-            onEachFeature: pop_RC_Boundary_1,
-            style: style_RC_Boundary_1_0,
+            dataVar: 'json_RegionalCentreBoundary_1',
+            layerName: 'layer_RegionalCentreBoundary_1',
+            pane: 'pane_RegionalCentreBoundary_1',
+            onEachFeature: pop_RegionalCentreBoundary_1,
+            style: style_RegionalCentreBoundary_1_0,
         });
-        bounds_group.addLayer(layer_RC_Boundary_1);
-        map.addLayer(layer_RC_Boundary_1);
-        function pop_HRM_RC_InformalGreenspaces_2(feature, layer) {
+        bounds_group.addLayer(layer_RegionalCentreBoundary_1);
+        map.addLayer(layer_RegionalCentreBoundary_1);
+        function pop_InformalGreenspaces_2(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['SPACE_NAME'] !== null ? autolinker.link(feature.properties['SPACE_NAME'].toLocaleString()) : '') + '</td>\
@@ -139,7 +168,7 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        var pattern_HRM_RC_InformalGreenspaces_2_0 = new L.StripePattern({
+        var pattern_InformalGreenspaces_2_0 = new L.StripePattern({
             weight: 0.3,
             spaceWeight: 2.0,
             color: '#cb1a3d',
@@ -147,17 +176,17 @@
             spaceOpacity: 0,
             angle: 315
         });
-        pattern_HRM_RC_InformalGreenspaces_2_0.addTo(map);
-        function style_HRM_RC_InformalGreenspaces_2_0() {
+        pattern_InformalGreenspaces_2_0.addTo(map);
+        function style_InformalGreenspaces_2_0() {
             return {
-                pane: 'pane_HRM_RC_InformalGreenspaces_2',
+                pane: 'pane_InformalGreenspaces_2',
                 stroke: false,
                 fillOpacity: 1,
-                fillPattern: pattern_HRM_RC_InformalGreenspaces_2_0,
+                fillPattern: pattern_InformalGreenspaces_2_0,
                 interactive: true,
             }
         }
-        var pattern_HRM_RC_InformalGreenspaces_2_1 = new L.StripePattern({
+        var pattern_InformalGreenspaces_2_1 = new L.StripePattern({
             weight: 0.3,
             spaceWeight: 2.0,
             color: '#cb1a3d',
@@ -165,19 +194,19 @@
             spaceOpacity: 0,
             angle: 225
         });
-        pattern_HRM_RC_InformalGreenspaces_2_1.addTo(map);
-        function style_HRM_RC_InformalGreenspaces_2_1() {
+        pattern_InformalGreenspaces_2_1.addTo(map);
+        function style_InformalGreenspaces_2_1() {
             return {
-                pane: 'pane_HRM_RC_InformalGreenspaces_2',
+                pane: 'pane_InformalGreenspaces_2',
                 stroke: false,
                 fillOpacity: 1,
-                fillPattern: pattern_HRM_RC_InformalGreenspaces_2_1,
+                fillPattern: pattern_InformalGreenspaces_2_1,
                 interactive: true,
             }
         }
-        function style_HRM_RC_InformalGreenspaces_2_2() {
+        function style_InformalGreenspaces_2_2() {
             return {
-                pane: 'pane_HRM_RC_InformalGreenspaces_2',
+                pane: 'pane_InformalGreenspaces_2',
                 opacity: 1,
                 color: 'rgba(203,26,61,1.0)',
                 dashArray: '',
@@ -188,21 +217,33 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_HRM_RC_InformalGreenspaces_2');
-        map.getPane('pane_HRM_RC_InformalGreenspaces_2').style.zIndex = 402;
-        map.getPane('pane_HRM_RC_InformalGreenspaces_2').style['mix-blend-mode'] = 'normal';
-        var layer_HRM_RC_InformalGreenspaces_2 = new L.geoJson.multiStyle(json_HRM_RC_InformalGreenspaces_2, {
+        map.createPane('pane_InformalGreenspaces_2');
+        map.getPane('pane_InformalGreenspaces_2').style.zIndex = 402;
+        map.getPane('pane_InformalGreenspaces_2').style['mix-blend-mode'] = 'normal';
+        var layer_InformalGreenspaces_2 = new L.geoJson.multiStyle(json_InformalGreenspaces_2, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_HRM_RC_InformalGreenspaces_2',
-            layerName: 'layer_HRM_RC_InformalGreenspaces_2',
-            pane: 'pane_HRM_RC_InformalGreenspaces_2',
-            onEachFeature: pop_HRM_RC_InformalGreenspaces_2,
-            styles: [style_HRM_RC_InformalGreenspaces_2_0,style_HRM_RC_InformalGreenspaces_2_1,style_HRM_RC_InformalGreenspaces_2_2,]
+            dataVar: 'json_InformalGreenspaces_2',
+            layerName: 'layer_InformalGreenspaces_2',
+            pane: 'pane_InformalGreenspaces_2',
+            onEachFeature: pop_InformalGreenspaces_2,
+            styles: [style_InformalGreenspaces_2_0,style_InformalGreenspaces_2_1,style_InformalGreenspaces_2_2,]
         });
-        bounds_group.addLayer(layer_HRM_RC_InformalGreenspaces_2);
-        map.addLayer(layer_HRM_RC_InformalGreenspaces_2);
-        function pop_HRM_RC_PrivateSpaces_3(feature, layer) {
+        bounds_group.addLayer(layer_InformalGreenspaces_2);
+        map.addLayer(layer_InformalGreenspaces_2);
+        function pop_PrivatelyManagedGreenspaces_3(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['SPACE_NAME'] !== null ? autolinker.link(feature.properties['SPACE_NAME'].toLocaleString()) : '') + '</td>\
@@ -235,7 +276,7 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        var pattern_HRM_RC_PrivateSpaces_3_0 = new L.StripePattern({
+        var pattern_PrivatelyManagedGreenspaces_3_0 = new L.StripePattern({
             weight: 0.3,
             spaceWeight: 2.0,
             color: '#82429a',
@@ -243,17 +284,17 @@
             spaceOpacity: 0,
             angle: 315
         });
-        pattern_HRM_RC_PrivateSpaces_3_0.addTo(map);
-        function style_HRM_RC_PrivateSpaces_3_0() {
+        pattern_PrivatelyManagedGreenspaces_3_0.addTo(map);
+        function style_PrivatelyManagedGreenspaces_3_0() {
             return {
-                pane: 'pane_HRM_RC_PrivateSpaces_3',
+                pane: 'pane_PrivatelyManagedGreenspaces_3',
                 stroke: false,
                 fillOpacity: 1,
-                fillPattern: pattern_HRM_RC_PrivateSpaces_3_0,
+                fillPattern: pattern_PrivatelyManagedGreenspaces_3_0,
                 interactive: true,
             }
         }
-        var pattern_HRM_RC_PrivateSpaces_3_1 = new L.StripePattern({
+        var pattern_PrivatelyManagedGreenspaces_3_1 = new L.StripePattern({
             weight: 0.3,
             spaceWeight: 2.0,
             color: '#82429a',
@@ -261,19 +302,19 @@
             spaceOpacity: 0,
             angle: 225
         });
-        pattern_HRM_RC_PrivateSpaces_3_1.addTo(map);
-        function style_HRM_RC_PrivateSpaces_3_1() {
+        pattern_PrivatelyManagedGreenspaces_3_1.addTo(map);
+        function style_PrivatelyManagedGreenspaces_3_1() {
             return {
-                pane: 'pane_HRM_RC_PrivateSpaces_3',
+                pane: 'pane_PrivatelyManagedGreenspaces_3',
                 stroke: false,
                 fillOpacity: 1,
-                fillPattern: pattern_HRM_RC_PrivateSpaces_3_1,
+                fillPattern: pattern_PrivatelyManagedGreenspaces_3_1,
                 interactive: true,
             }
         }
-        function style_HRM_RC_PrivateSpaces_3_2() {
+        function style_PrivatelyManagedGreenspaces_3_2() {
             return {
-                pane: 'pane_HRM_RC_PrivateSpaces_3',
+                pane: 'pane_PrivatelyManagedGreenspaces_3',
                 opacity: 1,
                 color: 'rgba(130,66,154,1.0)',
                 dashArray: '',
@@ -284,21 +325,33 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_HRM_RC_PrivateSpaces_3');
-        map.getPane('pane_HRM_RC_PrivateSpaces_3').style.zIndex = 403;
-        map.getPane('pane_HRM_RC_PrivateSpaces_3').style['mix-blend-mode'] = 'normal';
-        var layer_HRM_RC_PrivateSpaces_3 = new L.geoJson.multiStyle(json_HRM_RC_PrivateSpaces_3, {
+        map.createPane('pane_PrivatelyManagedGreenspaces_3');
+        map.getPane('pane_PrivatelyManagedGreenspaces_3').style.zIndex = 403;
+        map.getPane('pane_PrivatelyManagedGreenspaces_3').style['mix-blend-mode'] = 'normal';
+        var layer_PrivatelyManagedGreenspaces_3 = new L.geoJson.multiStyle(json_PrivatelyManagedGreenspaces_3, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_HRM_RC_PrivateSpaces_3',
-            layerName: 'layer_HRM_RC_PrivateSpaces_3',
-            pane: 'pane_HRM_RC_PrivateSpaces_3',
-            onEachFeature: pop_HRM_RC_PrivateSpaces_3,
-            styles: [style_HRM_RC_PrivateSpaces_3_0,style_HRM_RC_PrivateSpaces_3_1,style_HRM_RC_PrivateSpaces_3_2,]
+            dataVar: 'json_PrivatelyManagedGreenspaces_3',
+            layerName: 'layer_PrivatelyManagedGreenspaces_3',
+            pane: 'pane_PrivatelyManagedGreenspaces_3',
+            onEachFeature: pop_PrivatelyManagedGreenspaces_3,
+            styles: [style_PrivatelyManagedGreenspaces_3_0,style_PrivatelyManagedGreenspaces_3_1,style_PrivatelyManagedGreenspaces_3_2,]
         });
-        bounds_group.addLayer(layer_HRM_RC_PrivateSpaces_3);
-        map.addLayer(layer_HRM_RC_PrivateSpaces_3);
-        function pop_HRM_RC_AllPublicGreenspaces_4(feature, layer) {
+        bounds_group.addLayer(layer_PrivatelyManagedGreenspaces_3);
+        map.addLayer(layer_PrivatelyManagedGreenspaces_3);
+        function pop_PubliclyManagedGreenspaces_4(feature, layer) {
+            layer.on({
+                mouseout: function(e) {
+                    if (typeof layer.closePopup == 'function') {
+                        layer.closePopup();
+                    } else {
+                        layer.eachLayer(function(feature){
+                            feature.closePopup()
+                        });
+                    }
+                },
+                mouseover: highlightFeature,
+            });
             var popupContent = '<table>\
                     <tr>\
                         <td colspan="2">' + (feature.properties['SPACE_NAME'] !== null ? autolinker.link(feature.properties['SPACE_NAME'].toLocaleString()) : '') + '</td>\
@@ -331,7 +384,7 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        var pattern_HRM_RC_AllPublicGreenspaces_4_0 = new L.StripePattern({
+        var pattern_PubliclyManagedGreenspaces_4_0 = new L.StripePattern({
             weight: 0.3,
             spaceWeight: 2.0,
             color: '#72a52b',
@@ -339,17 +392,17 @@
             spaceOpacity: 0,
             angle: 315
         });
-        pattern_HRM_RC_AllPublicGreenspaces_4_0.addTo(map);
-        function style_HRM_RC_AllPublicGreenspaces_4_0() {
+        pattern_PubliclyManagedGreenspaces_4_0.addTo(map);
+        function style_PubliclyManagedGreenspaces_4_0() {
             return {
-                pane: 'pane_HRM_RC_AllPublicGreenspaces_4',
+                pane: 'pane_PubliclyManagedGreenspaces_4',
                 stroke: false,
                 fillOpacity: 1,
-                fillPattern: pattern_HRM_RC_AllPublicGreenspaces_4_0,
+                fillPattern: pattern_PubliclyManagedGreenspaces_4_0,
                 interactive: true,
             }
         }
-        var pattern_HRM_RC_AllPublicGreenspaces_4_1 = new L.StripePattern({
+        var pattern_PubliclyManagedGreenspaces_4_1 = new L.StripePattern({
             weight: 0.3,
             spaceWeight: 2.0,
             color: '#72a52b',
@@ -357,19 +410,19 @@
             spaceOpacity: 0,
             angle: 225
         });
-        pattern_HRM_RC_AllPublicGreenspaces_4_1.addTo(map);
-        function style_HRM_RC_AllPublicGreenspaces_4_1() {
+        pattern_PubliclyManagedGreenspaces_4_1.addTo(map);
+        function style_PubliclyManagedGreenspaces_4_1() {
             return {
-                pane: 'pane_HRM_RC_AllPublicGreenspaces_4',
+                pane: 'pane_PubliclyManagedGreenspaces_4',
                 stroke: false,
                 fillOpacity: 1,
-                fillPattern: pattern_HRM_RC_AllPublicGreenspaces_4_1,
+                fillPattern: pattern_PubliclyManagedGreenspaces_4_1,
                 interactive: true,
             }
         }
-        function style_HRM_RC_AllPublicGreenspaces_4_2() {
+        function style_PubliclyManagedGreenspaces_4_2() {
             return {
-                pane: 'pane_HRM_RC_AllPublicGreenspaces_4',
+                pane: 'pane_PubliclyManagedGreenspaces_4',
                 opacity: 1,
                 color: 'rgba(114,165,43,1.0)',
                 dashArray: '',
@@ -380,30 +433,32 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_HRM_RC_AllPublicGreenspaces_4');
-        map.getPane('pane_HRM_RC_AllPublicGreenspaces_4').style.zIndex = 404;
-        map.getPane('pane_HRM_RC_AllPublicGreenspaces_4').style['mix-blend-mode'] = 'normal';
-        var layer_HRM_RC_AllPublicGreenspaces_4 = new L.geoJson.multiStyle(json_HRM_RC_AllPublicGreenspaces_4, {
+        map.createPane('pane_PubliclyManagedGreenspaces_4');
+        map.getPane('pane_PubliclyManagedGreenspaces_4').style.zIndex = 404;
+        map.getPane('pane_PubliclyManagedGreenspaces_4').style['mix-blend-mode'] = 'normal';
+        var layer_PubliclyManagedGreenspaces_4 = new L.geoJson.multiStyle(json_PubliclyManagedGreenspaces_4, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_HRM_RC_AllPublicGreenspaces_4',
-            layerName: 'layer_HRM_RC_AllPublicGreenspaces_4',
-            pane: 'pane_HRM_RC_AllPublicGreenspaces_4',
-            onEachFeature: pop_HRM_RC_AllPublicGreenspaces_4,
-            styles: [style_HRM_RC_AllPublicGreenspaces_4_0,style_HRM_RC_AllPublicGreenspaces_4_1,style_HRM_RC_AllPublicGreenspaces_4_2,]
+            dataVar: 'json_PubliclyManagedGreenspaces_4',
+            layerName: 'layer_PubliclyManagedGreenspaces_4',
+            pane: 'pane_PubliclyManagedGreenspaces_4',
+            onEachFeature: pop_PubliclyManagedGreenspaces_4,
+            styles: [style_PubliclyManagedGreenspaces_4_0,style_PubliclyManagedGreenspaces_4_1,style_PubliclyManagedGreenspaces_4_2,]
         });
-        bounds_group.addLayer(layer_HRM_RC_AllPublicGreenspaces_4);
-        map.addLayer(layer_HRM_RC_AllPublicGreenspaces_4);
+        bounds_group.addLayer(layer_PubliclyManagedGreenspaces_4);
+        map.addLayer(layer_PubliclyManagedGreenspaces_4);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/PubliclyManagedGreenspaces_4.png" /> Publicly Managed Greenspaces': layer_PubliclyManagedGreenspaces_4,'<img src="legend/PrivatelyManagedGreenspaces_3.png" /> Privately Managed Greenspaces': layer_PrivatelyManagedGreenspaces_3,'<img src="legend/InformalGreenspaces_2.png" /> Informal Greenspaces': layer_InformalGreenspaces_2,'<img src="legend/RegionalCentreBoundary_1.png" /> Regional Centre Boundary': layer_RegionalCentreBoundary_1,"Base Map": layer_BaseMap_0,},{collapsed:false}).addTo(map);
         setBounds();
-        resetLabels([layer_HRM_RC_InformalGreenspaces_2,layer_HRM_RC_AllPublicGreenspaces_4]);
+        resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspaces_4]);
         map.on("zoomend", function(){
-            resetLabels([layer_HRM_RC_InformalGreenspaces_2,layer_HRM_RC_AllPublicGreenspaces_4]);
+            resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspaces_4]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_HRM_RC_InformalGreenspaces_2,layer_HRM_RC_AllPublicGreenspaces_4]);
+            resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspaces_4]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_HRM_RC_InformalGreenspaces_2,layer_HRM_RC_AllPublicGreenspaces_4]);
+            resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspaces_4]);
         });
         </script>
     </body>
