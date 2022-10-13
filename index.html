@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="data/RC_Boundary_1.js"></script>
+        <script src="data/HRM_RC_InformalGreenspaces_2.js"></script>
+        <script src="data/HRM_RC_PrivateSpaces_3.js"></script>
+        <script src="data/HRM_RC_AllPublicGreenspaces_4.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[44.61314831516162,-63.66610338534561],[44.696284658645396,-63.496902953654335]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_ESRIGraylight_0');
+        map.getPane('pane_ESRIGraylight_0').style.zIndex = 400;
+        var layer_ESRIGraylight_0 = L.tileLayer('http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+            pane: 'pane_ESRIGraylight_0',
+            opacity: 1.0,
+            attribution: '',
+            minZoom: 1,
+            maxZoom: 28,
+            minNativeZoom: 0,
+            maxNativeZoom: 20
+        });
+        layer_ESRIGraylight_0;
+        map.addLayer(layer_ESRIGraylight_0);
+        function pop_RC_Boundary_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['BOUNDARY'] !== null ? autolinker.link(feature.properties['BOUNDARY'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Boundary Abbreviation</th>\
+                        <td>' + (feature.properties['BOUND_ABBR'] !== null ? autolinker.link(feature.properties['BOUND_ABBR'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">URL</th>\
+                        <td>' + (feature.properties['WEBURL'] !== null ? autolinker.link(feature.properties['WEBURL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Area (m²)</th>\
+                        <td>' + (feature.properties['HTML_area'] !== null ? autolinker.link(feature.properties['HTML_area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_RC_Boundary_1_0() {
+            return {
+                pane: 'pane_RC_Boundary_1',
+                opacity: 1,
+                color: 'rgba(1,37,77,1.0)',
+                dashArray: '10,5',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_RC_Boundary_1');
+        map.getPane('pane_RC_Boundary_1').style.zIndex = 401;
+        map.getPane('pane_RC_Boundary_1').style['mix-blend-mode'] = 'normal';
+        var layer_RC_Boundary_1 = new L.geoJson(json_RC_Boundary_1, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_RC_Boundary_1',
+            layerName: 'layer_RC_Boundary_1',
+            pane: 'pane_RC_Boundary_1',
+            onEachFeature: pop_RC_Boundary_1,
+            style: style_RC_Boundary_1_0,
+        });
+        bounds_group.addLayer(layer_RC_Boundary_1);
+        map.addLayer(layer_RC_Boundary_1);
+        function pop_HRM_RC_InformalGreenspaces_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SPACE_NAME'] !== null ? autolinker.link(feature.properties['SPACE_NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Space Type</th>\
+                        <td>' + (feature.properties['SPACE_TYPE'] !== null ? autolinker.link(feature.properties['SPACE_TYPE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Access</th>\
+                        <td>' + (feature.properties['ACCESS'] !== null ? autolinker.link(feature.properties['ACCESS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Owner</th>\
+                        <td>' + (feature.properties['OWNER'] !== null ? autolinker.link(feature.properties['OWNER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Maintenance Responsibility</th>\
+                        <td>' + (feature.properties['SPACE_MAIN'] !== null ? autolinker.link(feature.properties['SPACE_MAIN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Membership Requirement</th>\
+                        <td>' + (feature.properties['MEMBERSHIP'] !== null ? autolinker.link(feature.properties['MEMBERSHIP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Area (m²)</th>\
+                        <td>' + (feature.properties['HTML_area'] !== null ? autolinker.link(feature.properties['HTML_area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        var pattern_HRM_RC_InformalGreenspaces_2_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#cb1a3d',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_HRM_RC_InformalGreenspaces_2_0.addTo(map);
+        function style_HRM_RC_InformalGreenspaces_2_0() {
+            return {
+                pane: 'pane_HRM_RC_InformalGreenspaces_2',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_HRM_RC_InformalGreenspaces_2_0,
+                interactive: true,
+            }
+        }
+        var pattern_HRM_RC_InformalGreenspaces_2_1 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#cb1a3d',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 225
+        });
+        pattern_HRM_RC_InformalGreenspaces_2_1.addTo(map);
+        function style_HRM_RC_InformalGreenspaces_2_1() {
+            return {
+                pane: 'pane_HRM_RC_InformalGreenspaces_2',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_HRM_RC_InformalGreenspaces_2_1,
+                interactive: true,
+            }
+        }
+        function style_HRM_RC_InformalGreenspaces_2_2() {
+            return {
+                pane: 'pane_HRM_RC_InformalGreenspaces_2',
+                opacity: 1,
+                color: 'rgba(203,26,61,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_HRM_RC_InformalGreenspaces_2');
+        map.getPane('pane_HRM_RC_InformalGreenspaces_2').style.zIndex = 402;
+        map.getPane('pane_HRM_RC_InformalGreenspaces_2').style['mix-blend-mode'] = 'normal';
+        var layer_HRM_RC_InformalGreenspaces_2 = new L.geoJson.multiStyle(json_HRM_RC_InformalGreenspaces_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_HRM_RC_InformalGreenspaces_2',
+            layerName: 'layer_HRM_RC_InformalGreenspaces_2',
+            pane: 'pane_HRM_RC_InformalGreenspaces_2',
+            onEachFeature: pop_HRM_RC_InformalGreenspaces_2,
+            styles: [style_HRM_RC_InformalGreenspaces_2_0,style_HRM_RC_InformalGreenspaces_2_1,style_HRM_RC_InformalGreenspaces_2_2,]
+        });
+        bounds_group.addLayer(layer_HRM_RC_InformalGreenspaces_2);
+        map.addLayer(layer_HRM_RC_InformalGreenspaces_2);
+        function pop_HRM_RC_PrivateSpaces_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SPACE_NAME'] !== null ? autolinker.link(feature.properties['SPACE_NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Space Type</th>\
+                        <td>' + (feature.properties['SPACE_TYPE'] !== null ? autolinker.link(feature.properties['SPACE_TYPE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Access</th>\
+                        <td>' + (feature.properties['ACCESS'] !== null ? autolinker.link(feature.properties['ACCESS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Owner</th>\
+                        <td>' + (feature.properties['OWNER'] !== null ? autolinker.link(feature.properties['OWNER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Maintenance Responsibility</th>\
+                        <td>' + (feature.properties['SPACE_MAIN'] !== null ? autolinker.link(feature.properties['SPACE_MAIN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Membership Requirement</th>\
+                        <td>' + (feature.properties['MEMBERSHIP'] !== null ? autolinker.link(feature.properties['MEMBERSHIP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Area (m²)</th>\
+                        <td>' + (feature.properties['HTML_area'] !== null ? autolinker.link(feature.properties['HTML_area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        var pattern_HRM_RC_PrivateSpaces_3_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#82429a',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_HRM_RC_PrivateSpaces_3_0.addTo(map);
+        function style_HRM_RC_PrivateSpaces_3_0() {
+            return {
+                pane: 'pane_HRM_RC_PrivateSpaces_3',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_HRM_RC_PrivateSpaces_3_0,
+                interactive: true,
+            }
+        }
+        var pattern_HRM_RC_PrivateSpaces_3_1 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#82429a',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 225
+        });
+        pattern_HRM_RC_PrivateSpaces_3_1.addTo(map);
+        function style_HRM_RC_PrivateSpaces_3_1() {
+            return {
+                pane: 'pane_HRM_RC_PrivateSpaces_3',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_HRM_RC_PrivateSpaces_3_1,
+                interactive: true,
+            }
+        }
+        function style_HRM_RC_PrivateSpaces_3_2() {
+            return {
+                pane: 'pane_HRM_RC_PrivateSpaces_3',
+                opacity: 1,
+                color: 'rgba(130,66,154,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_HRM_RC_PrivateSpaces_3');
+        map.getPane('pane_HRM_RC_PrivateSpaces_3').style.zIndex = 403;
+        map.getPane('pane_HRM_RC_PrivateSpaces_3').style['mix-blend-mode'] = 'normal';
+        var layer_HRM_RC_PrivateSpaces_3 = new L.geoJson.multiStyle(json_HRM_RC_PrivateSpaces_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_HRM_RC_PrivateSpaces_3',
+            layerName: 'layer_HRM_RC_PrivateSpaces_3',
+            pane: 'pane_HRM_RC_PrivateSpaces_3',
+            onEachFeature: pop_HRM_RC_PrivateSpaces_3,
+            styles: [style_HRM_RC_PrivateSpaces_3_0,style_HRM_RC_PrivateSpaces_3_1,style_HRM_RC_PrivateSpaces_3_2,]
+        });
+        bounds_group.addLayer(layer_HRM_RC_PrivateSpaces_3);
+        map.addLayer(layer_HRM_RC_PrivateSpaces_3);
+        function pop_HRM_RC_AllPublicGreenspaces_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SPACE_NAME'] !== null ? autolinker.link(feature.properties['SPACE_NAME'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Space Type</th>\
+                        <td>' + (feature.properties['SPACE_TYPE'] !== null ? autolinker.link(feature.properties['SPACE_TYPE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Access</th>\
+                        <td>' + (feature.properties['ACCESS'] !== null ? autolinker.link(feature.properties['ACCESS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Owner</th>\
+                        <td>' + (feature.properties['OWNER'] !== null ? autolinker.link(feature.properties['OWNER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Maintenance Responsibility</th>\
+                        <td>' + (feature.properties['SPACE_MAIN'] !== null ? autolinker.link(feature.properties['SPACE_MAIN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Membership Requirement</th>\
+                        <td>' + (feature.properties['MEMBERSHIP'] !== null ? autolinker.link(feature.properties['MEMBERSHIP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Area (m²)</th>\
+                        <td>' + (feature.properties['HTML_area'] !== null ? autolinker.link(feature.properties['HTML_area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        var pattern_HRM_RC_AllPublicGreenspaces_4_0 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#72a52b',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 315
+        });
+        pattern_HRM_RC_AllPublicGreenspaces_4_0.addTo(map);
+        function style_HRM_RC_AllPublicGreenspaces_4_0() {
+            return {
+                pane: 'pane_HRM_RC_AllPublicGreenspaces_4',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_HRM_RC_AllPublicGreenspaces_4_0,
+                interactive: true,
+            }
+        }
+        var pattern_HRM_RC_AllPublicGreenspaces_4_1 = new L.StripePattern({
+            weight: 0.3,
+            spaceWeight: 2.0,
+            color: '#72a52b',
+            opacity: 1.0,
+            spaceOpacity: 0,
+            angle: 225
+        });
+        pattern_HRM_RC_AllPublicGreenspaces_4_1.addTo(map);
+        function style_HRM_RC_AllPublicGreenspaces_4_1() {
+            return {
+                pane: 'pane_HRM_RC_AllPublicGreenspaces_4',
+                stroke: false,
+                fillOpacity: 1,
+                fillPattern: pattern_HRM_RC_AllPublicGreenspaces_4_1,
+                interactive: true,
+            }
+        }
+        function style_HRM_RC_AllPublicGreenspaces_4_2() {
+            return {
+                pane: 'pane_HRM_RC_AllPublicGreenspaces_4',
+                opacity: 1,
+                color: 'rgba(114,165,43,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_HRM_RC_AllPublicGreenspaces_4');
+        map.getPane('pane_HRM_RC_AllPublicGreenspaces_4').style.zIndex = 404;
+        map.getPane('pane_HRM_RC_AllPublicGreenspaces_4').style['mix-blend-mode'] = 'normal';
+        var layer_HRM_RC_AllPublicGreenspaces_4 = new L.geoJson.multiStyle(json_HRM_RC_AllPublicGreenspaces_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_HRM_RC_AllPublicGreenspaces_4',
+            layerName: 'layer_HRM_RC_AllPublicGreenspaces_4',
+            pane: 'pane_HRM_RC_AllPublicGreenspaces_4',
+            onEachFeature: pop_HRM_RC_AllPublicGreenspaces_4,
+            styles: [style_HRM_RC_AllPublicGreenspaces_4_0,style_HRM_RC_AllPublicGreenspaces_4_1,style_HRM_RC_AllPublicGreenspaces_4_2,]
+        });
+        bounds_group.addLayer(layer_HRM_RC_AllPublicGreenspaces_4);
+        map.addLayer(layer_HRM_RC_AllPublicGreenspaces_4);
+        setBounds();
+        resetLabels([layer_HRM_RC_InformalGreenspaces_2,layer_HRM_RC_AllPublicGreenspaces_4]);
+        map.on("zoomend", function(){
+            resetLabels([layer_HRM_RC_InformalGreenspaces_2,layer_HRM_RC_AllPublicGreenspaces_4]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_HRM_RC_InformalGreenspaces_2,layer_HRM_RC_AllPublicGreenspaces_4]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_HRM_RC_InformalGreenspaces_2,layer_HRM_RC_AllPublicGreenspaces_4]);
+        });
+        </script>
+    </body>
+</html>
