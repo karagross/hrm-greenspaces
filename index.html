@@ -36,7 +36,7 @@
         <script src="data/PrivatelyManagedGreenspaces_3.js"></script>
         <script src="data/PubliclyManagedGreenspacesNonHRM_4.js"></script>
         <script src="data/PubliclyManagedGreenspacesHRM_5.js"></script>
-        <script src="data/PubliclyManagedGreenspaces_6.js"></script>
+        <script src="data/PubliclyManagedGreenspacesAll_6.js"></script>
         <script>
         var highlightLayer;
         function highlightFeature(e) {
@@ -573,7 +573,7 @@
         });
         bounds_group.addLayer(layer_PubliclyManagedGreenspacesHRM_5);
         map.addLayer(layer_PubliclyManagedGreenspacesHRM_5);
-        function pop_PubliclyManagedGreenspaces_6(feature, layer) {
+        function pop_PubliclyManagedGreenspacesAll_6(feature, layer) {
             layer.on({
                 mouseout: function(e) {
                     if (typeof layer.closePopup == 'function') {
@@ -618,7 +618,7 @@
             layer.bindPopup(popupContent, {maxHeight: 400});
         }
 
-        var pattern_PubliclyManagedGreenspaces_6_0 = new L.StripePattern({
+        var pattern_PubliclyManagedGreenspacesAll_6_0 = new L.StripePattern({
             weight: 0.3,
             spaceWeight: 2.0,
             color: '#72a52b',
@@ -626,17 +626,17 @@
             spaceOpacity: 0,
             angle: 315
         });
-        pattern_PubliclyManagedGreenspaces_6_0.addTo(map);
-        function style_PubliclyManagedGreenspaces_6_0() {
+        pattern_PubliclyManagedGreenspacesAll_6_0.addTo(map);
+        function style_PubliclyManagedGreenspacesAll_6_0() {
             return {
-                pane: 'pane_PubliclyManagedGreenspaces_6',
+                pane: 'pane_PubliclyManagedGreenspacesAll_6',
                 stroke: false,
                 fillOpacity: 1,
-                fillPattern: pattern_PubliclyManagedGreenspaces_6_0,
+                fillPattern: pattern_PubliclyManagedGreenspacesAll_6_0,
                 interactive: true,
             }
         }
-        var pattern_PubliclyManagedGreenspaces_6_1 = new L.StripePattern({
+        var pattern_PubliclyManagedGreenspacesAll_6_1 = new L.StripePattern({
             weight: 0.3,
             spaceWeight: 2.0,
             color: '#72a52b',
@@ -644,19 +644,19 @@
             spaceOpacity: 0,
             angle: 225
         });
-        pattern_PubliclyManagedGreenspaces_6_1.addTo(map);
-        function style_PubliclyManagedGreenspaces_6_1() {
+        pattern_PubliclyManagedGreenspacesAll_6_1.addTo(map);
+        function style_PubliclyManagedGreenspacesAll_6_1() {
             return {
-                pane: 'pane_PubliclyManagedGreenspaces_6',
+                pane: 'pane_PubliclyManagedGreenspacesAll_6',
                 stroke: false,
                 fillOpacity: 1,
-                fillPattern: pattern_PubliclyManagedGreenspaces_6_1,
+                fillPattern: pattern_PubliclyManagedGreenspacesAll_6_1,
                 interactive: true,
             }
         }
-        function style_PubliclyManagedGreenspaces_6_2() {
+        function style_PubliclyManagedGreenspacesAll_6_2() {
             return {
-                pane: 'pane_PubliclyManagedGreenspaces_6',
+                pane: 'pane_PubliclyManagedGreenspacesAll_6',
                 opacity: 1,
                 color: 'rgba(114,165,43,1.0)',
                 dashArray: '',
@@ -667,32 +667,32 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_PubliclyManagedGreenspaces_6');
-        map.getPane('pane_PubliclyManagedGreenspaces_6').style.zIndex = 406;
-        map.getPane('pane_PubliclyManagedGreenspaces_6').style['mix-blend-mode'] = 'normal';
-        var layer_PubliclyManagedGreenspaces_6 = new L.geoJson.multiStyle(json_PubliclyManagedGreenspaces_6, {
+        map.createPane('pane_PubliclyManagedGreenspacesAll_6');
+        map.getPane('pane_PubliclyManagedGreenspacesAll_6').style.zIndex = 406;
+        map.getPane('pane_PubliclyManagedGreenspacesAll_6').style['mix-blend-mode'] = 'normal';
+        var layer_PubliclyManagedGreenspacesAll_6 = new L.geoJson.multiStyle(json_PubliclyManagedGreenspacesAll_6, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_PubliclyManagedGreenspaces_6',
-            layerName: 'layer_PubliclyManagedGreenspaces_6',
-            pane: 'pane_PubliclyManagedGreenspaces_6',
-            onEachFeature: pop_PubliclyManagedGreenspaces_6,
-            styles: [style_PubliclyManagedGreenspaces_6_0,style_PubliclyManagedGreenspaces_6_1,style_PubliclyManagedGreenspaces_6_2,]
+            dataVar: 'json_PubliclyManagedGreenspacesAll_6',
+            layerName: 'layer_PubliclyManagedGreenspacesAll_6',
+            pane: 'pane_PubliclyManagedGreenspacesAll_6',
+            onEachFeature: pop_PubliclyManagedGreenspacesAll_6,
+            styles: [style_PubliclyManagedGreenspacesAll_6_0,style_PubliclyManagedGreenspacesAll_6_1,style_PubliclyManagedGreenspacesAll_6_2,]
         });
-        bounds_group.addLayer(layer_PubliclyManagedGreenspaces_6);
-        map.addLayer(layer_PubliclyManagedGreenspaces_6);
+        bounds_group.addLayer(layer_PubliclyManagedGreenspacesAll_6);
+        map.addLayer(layer_PubliclyManagedGreenspacesAll_6);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/PubliclyManagedGreenspaces_6.png" /> Publicly Managed Greenspaces': layer_PubliclyManagedGreenspaces_6,'<img src="legend/PubliclyManagedGreenspacesHRM_5.png" /> Publicly Managed Greenspaces (HRM)': layer_PubliclyManagedGreenspacesHRM_5,'<img src="legend/PubliclyManagedGreenspacesNonHRM_4.png" /> Publicly Managed Greenspaces (Non-HRM)': layer_PubliclyManagedGreenspacesNonHRM_4,'<img src="legend/PrivatelyManagedGreenspaces_3.png" /> Privately Managed Greenspaces': layer_PrivatelyManagedGreenspaces_3,'<img src="legend/InformalGreenspaces_2.png" /> Informal Greenspaces': layer_InformalGreenspaces_2,'<img src="legend/RegionalCentreBoundary_1.png" /> Regional Centre Boundary': layer_RegionalCentreBoundary_1,"Base Map": layer_BaseMap_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/PubliclyManagedGreenspacesAll_6.png" /> Publicly Managed Greenspaces (All)': layer_PubliclyManagedGreenspacesAll_6,'<img src="legend/PubliclyManagedGreenspacesHRM_5.png" /> Publicly Managed Greenspaces (HRM)': layer_PubliclyManagedGreenspacesHRM_5,'<img src="legend/PubliclyManagedGreenspacesNonHRM_4.png" /> Publicly Managed Greenspaces (Non-HRM)': layer_PubliclyManagedGreenspacesNonHRM_4,'<img src="legend/PrivatelyManagedGreenspaces_3.png" /> Privately Managed Greenspaces': layer_PrivatelyManagedGreenspaces_3,'<img src="legend/InformalGreenspaces_2.png" /> Informal Greenspaces': layer_InformalGreenspaces_2,'<img src="legend/RegionalCentreBoundary_1.png" /> Regional Centre Boundary': layer_RegionalCentreBoundary_1,"Base Map": layer_BaseMap_0,},{collapsed:false}).addTo(map);
         setBounds();
-        resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspacesNonHRM_4,layer_PubliclyManagedGreenspacesHRM_5,layer_PubliclyManagedGreenspaces_6]);
+        resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspacesNonHRM_4,layer_PubliclyManagedGreenspacesHRM_5,layer_PubliclyManagedGreenspacesAll_6]);
         map.on("zoomend", function(){
-            resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspacesNonHRM_4,layer_PubliclyManagedGreenspacesHRM_5,layer_PubliclyManagedGreenspaces_6]);
+            resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspacesNonHRM_4,layer_PubliclyManagedGreenspacesHRM_5,layer_PubliclyManagedGreenspacesAll_6]);
         });
         map.on("layeradd", function(){
-            resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspacesNonHRM_4,layer_PubliclyManagedGreenspacesHRM_5,layer_PubliclyManagedGreenspaces_6]);
+            resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspacesNonHRM_4,layer_PubliclyManagedGreenspacesHRM_5,layer_PubliclyManagedGreenspacesAll_6]);
         });
         map.on("layerremove", function(){
-            resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspacesNonHRM_4,layer_PubliclyManagedGreenspacesHRM_5,layer_PubliclyManagedGreenspaces_6]);
+            resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspacesNonHRM_4,layer_PubliclyManagedGreenspacesHRM_5,layer_PubliclyManagedGreenspacesAll_6]);
         });
         </script>
     </body>
