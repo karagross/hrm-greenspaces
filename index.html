@@ -45,7 +45,7 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[44.563740311765564,-63.68996905073412],[44.7300353146579,-63.351568187351575]]);
+        }).fitBounds([[-1.3850593397407547e-05,-8.983152841195214e-06],[1.3850593397407547e-05,8.98315284119521e-06]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -83,10 +83,6 @@
                         <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">URL</th>\
-                        <td>' + (feature.properties['WEBURL'] !== null ? autolinker.link(feature.properties['WEBURL'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
                         <td colspan="2">' + (feature.properties['BOUNDARY'] !== null ? autolinker.link(feature.properties['BOUNDARY'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
@@ -96,6 +92,10 @@
                     <tr>\
                         <th scope="row">Area (m²)</th>\
                         <td>' + (feature.properties['HTML_area'] !== null ? autolinker.link(feature.properties['HTML_area'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">URL</th>\
+                        <td>' + (feature.properties['WEBURL'] !== null ? autolinker.link(feature.properties['WEBURL'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -111,7 +111,7 @@
                 lineJoin: 'bevel',
                 weight: 4.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
         }
         map.createPane('pane_RegionalCentreBoundary_1');
@@ -119,7 +119,7 @@
         map.getPane('pane_RegionalCentreBoundary_1').style['mix-blend-mode'] = 'normal';
         var layer_RegionalCentreBoundary_1 = new L.geoJson(json_RegionalCentreBoundary_1, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_RegionalCentreBoundary_1',
             layerName: 'layer_RegionalCentreBoundary_1',
             pane: 'pane_RegionalCentreBoundary_1',
