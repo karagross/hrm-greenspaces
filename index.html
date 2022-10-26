@@ -50,7 +50,7 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[44.601555417257984,-63.66612703759693],[44.70625407779955,-63.45304557958864]]);
+        }).fitBounds([[44.61463999572752,-63.661894485455726],[44.70810977292586,-63.47164142332022]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -193,7 +193,7 @@
                 lineJoin: 'bevel',
                 weight: 4.0,
                 fillOpacity: 0,
-                interactive: true,
+                interactive: false,
             }
         }
         map.createPane('pane_RegionalCentreBoundary_2');
@@ -201,7 +201,7 @@
         map.getPane('pane_RegionalCentreBoundary_2').style['mix-blend-mode'] = 'normal';
         var layer_RegionalCentreBoundary_2 = new L.geoJson(json_RegionalCentreBoundary_2, {
             attribution: '',
-            interactive: true,
+            interactive: false,
             dataVar: 'json_RegionalCentreBoundary_2',
             layerName: 'layer_RegionalCentreBoundary_2',
             pane: 'pane_RegionalCentreBoundary_2',
