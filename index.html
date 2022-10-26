@@ -8,6 +8,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link rel="stylesheet" href="css/leaflet.css">
         <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
         <style>
         html, body, #map {
             width: 100%;
@@ -31,6 +32,7 @@
         <script src="js/rbush.min.js"></script>
         <script src="js/labelgun.min.js"></script>
         <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
         <script src="data/RegionalCentreBoundary_1.js"></script>
         <script src="data/InformalGreenspaces_2.js"></script>
         <script src="data/PrivatelyManagedGreenspaces_3.js"></script>
@@ -45,10 +47,22 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[-1.3850593397407547e-05,-8.983152841195214e-06],[1.3850593397407547e-05,8.98315284119521e-06]]);
+        }).fitBounds([[44.613394383618896,-63.704540098032986],[44.74387290661415,-63.438878405079365]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
@@ -359,30 +373,31 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['SPACE_NAME'] !== null ? autolinker.link(feature.properties['SPACE_NAME'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">OWNER</th>\
-                        <td>' + (feature.properties['OWNER'] !== null ? autolinker.link(feature.properties['OWNER'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">ACCESS</th>\
-                        <td>' + (feature.properties['ACCESS'] !== null ? autolinker.link(feature.properties['ACCESS'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">SPACE_TYPE</th>\
+                        <th scope="row">Space Type</th>\
                         <td>' + (feature.properties['SPACE_TYPE'] !== null ? autolinker.link(feature.properties['SPACE_TYPE'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">SPACE_MAIN</th>\
+                        <th scope="row">Access</th>\
+                        <td>' + (feature.properties['ACCESS'] !== null ? autolinker.link(feature.properties['ACCESS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Owner</th>\
+                        <td>' + (feature.properties['OWNER'] !== null ? autolinker.link(feature.properties['OWNER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Maintenance Responsibility</th>\
                         <td>' + (feature.properties['SPACE_MAIN'] !== null ? autolinker.link(feature.properties['SPACE_MAIN'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2"><strong>SPACE_NAME</strong><br />' + (feature.properties['SPACE_NAME'] !== null ? autolinker.link(feature.properties['SPACE_NAME'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Membership Requirement</th>\
+                        <td>' + (feature.properties['MEMBERSHIP'] !== null ? autolinker.link(feature.properties['MEMBERSHIP'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">MEMBERSHIP</th>\
-                        <td>' + (feature.properties['MEMBERSHIP'] !== null ? autolinker.link(feature.properties['MEMBERSHIP'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Area (m²)</th>\
+                        <td>' + (feature.properties['HTML_area'] !== null ? autolinker.link(feature.properties['HTML_area'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -466,45 +481,31 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['fid'] !== null ? autolinker.link(feature.properties['fid'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['SPACE_NAME'] !== null ? autolinker.link(feature.properties['SPACE_NAME'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">OWNER</th>\
-                        <td>' + (feature.properties['OWNER'] !== null ? autolinker.link(feature.properties['OWNER'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">HECTARES</th>\
-                        <td>' + (feature.properties['HECTARES'] !== null ? autolinker.link(feature.properties['HECTARES'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">SHAPE_Leng</th>\
-                        <td>' + (feature.properties['SHAPE_Leng'] !== null ? autolinker.link(feature.properties['SHAPE_Leng'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">SHAPE_Area</th>\
-                        <td>' + (feature.properties['SHAPE_Area'] !== null ? autolinker.link(feature.properties['SHAPE_Area'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">ACCESS</th>\
-                        <td>' + (feature.properties['ACCESS'] !== null ? autolinker.link(feature.properties['ACCESS'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <td colspan="2"><strong>SPACE_NAME</strong><br />' + (feature.properties['SPACE_NAME'] !== null ? autolinker.link(feature.properties['SPACE_NAME'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">SPACE_MAIN</th>\
-                        <td>' + (feature.properties['SPACE_MAIN'] !== null ? autolinker.link(feature.properties['SPACE_MAIN'].toLocaleString()) : '') + '</td>\
-                    </tr>\
-                    <tr>\
-                        <th scope="row">SPACE_TYPE</th>\
+                        <th scope="row">Space Type</th>\
                         <td>' + (feature.properties['SPACE_TYPE'] !== null ? autolinker.link(feature.properties['SPACE_TYPE'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">MEMBERSHIP</th>\
+                        <th scope="row">Access</th>\
+                        <td>' + (feature.properties['ACCESS'] !== null ? autolinker.link(feature.properties['ACCESS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Owner</th>\
+                        <td>' + (feature.properties['OWNER'] !== null ? autolinker.link(feature.properties['OWNER'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Maintenance Responsibility</th>\
+                        <td>' + (feature.properties['SPACE_MAIN'] !== null ? autolinker.link(feature.properties['SPACE_MAIN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">Membership Requirement</th>\
                         <td>' + (feature.properties['MEMBERSHIP'] !== null ? autolinker.link(feature.properties['MEMBERSHIP'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <td colspan="2">' + (feature.properties['HTML_area'] !== null ? autolinker.link(feature.properties['HTML_area'].toLocaleString()) : '') + '</td>\
+                        <th scope="row">Area (m²)</th>\
+                        <td>' + (feature.properties['HTML_area'] !== null ? autolinker.link(feature.properties['HTML_area'].toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             layer.bindPopup(popupContent, {maxHeight: 400});
@@ -682,7 +683,7 @@
         bounds_group.addLayer(layer_PubliclyManagedGreenspacesAll_6);
         map.addLayer(layer_PubliclyManagedGreenspacesAll_6);
         var baseMaps = {};
-        L.control.layers(baseMaps,{'<img src="legend/PubliclyManagedGreenspacesAll_6.png" /> Publicly Managed Greenspaces (All)': layer_PubliclyManagedGreenspacesAll_6,'<img src="legend/PubliclyManagedGreenspacesHRM_5.png" /> Publicly Managed Greenspaces (HRM)': layer_PubliclyManagedGreenspacesHRM_5,'<img src="legend/PubliclyManagedGreenspacesNonHRM_4.png" /> Publicly Managed Greenspaces (Non-HRM)': layer_PubliclyManagedGreenspacesNonHRM_4,'<img src="legend/PrivatelyManagedGreenspaces_3.png" /> Privately Managed Greenspaces': layer_PrivatelyManagedGreenspaces_3,'<img src="legend/InformalGreenspaces_2.png" /> Informal Greenspaces': layer_InformalGreenspaces_2,'<img src="legend/RegionalCentreBoundary_1.png" /> Regional Centre Boundary': layer_RegionalCentreBoundary_1,"Base Map": layer_BaseMap_0,},{collapsed:false}).addTo(map);
+        L.control.layers(baseMaps,{'<img src="legend/PubliclyManagedGreenspacesAll_6.png" /> Publicly Managed Greenspaces (All)': layer_PubliclyManagedGreenspacesAll_6,'<img src="legend/PubliclyManagedGreenspacesHRM_5.png" /> Publicly Managed Greenspaces (HRM)': layer_PubliclyManagedGreenspacesHRM_5,'<img src="legend/PubliclyManagedGreenspacesNonHRM_4.png" /> Publicly Managed Greenspaces (Non-HRM)': layer_PubliclyManagedGreenspacesNonHRM_4,'<img src="legend/PrivatelyManagedGreenspaces_3.png" /> Privately Managed Greenspaces': layer_PrivatelyManagedGreenspaces_3,'<img src="legend/InformalGreenspaces_2.png" /> Informal Greenspaces': layer_InformalGreenspaces_2,'<img src="legend/RegionalCentreBoundary_1.png" /> Regional Centre Boundary': layer_RegionalCentreBoundary_1,"Base Map": layer_BaseMap_0,}).addTo(map);
         setBounds();
         resetLabels([layer_InformalGreenspaces_2,layer_PubliclyManagedGreenspacesNonHRM_4,layer_PubliclyManagedGreenspacesHRM_5,layer_PubliclyManagedGreenspacesAll_6]);
         map.on("zoomend", function(){
