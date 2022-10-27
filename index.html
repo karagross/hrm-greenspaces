@@ -50,7 +50,7 @@
         }
         var map = L.map('map', {
             zoomControl:true, maxZoom:28, minZoom:1
-        }).fitBounds([[44.61463999572752,-63.661894485455726],[44.70810977292586,-63.47164142332022]]);
+        }).fitBounds([[44.58605679010765,-63.73781109078437],[44.75989239182513,-63.38390630801768]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -441,7 +441,7 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2"><strong>Name</strong><br />' + (feature.properties['SPACE_NAME'] !== null ? autolinker.link(feature.properties['SPACE_NAME'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['SPACE_NAME'] !== null ? autolinker.link(feature.properties['SPACE_NAME'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Space Type</th>\
@@ -548,7 +548,7 @@
             });
             var popupContent = '<table>\
                     <tr>\
-                        <td colspan="2"><strong>Name</strong><br />' + (feature.properties['SPACE_NAME'] !== null ? autolinker.link(feature.properties['SPACE_NAME'].toLocaleString()) : '') + '</td>\
+                        <td colspan="2">' + (feature.properties['SPACE_NAME'] !== null ? autolinker.link(feature.properties['SPACE_NAME'].toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
                         <th scope="row">Space Type</th>\
